@@ -31,11 +31,10 @@ public class UserMysqlAdapter implements IUserPersistencePort {
     //Acá están todos los repositorios
 
     private final IUserRepository userRepository;
-    private final IPersonRepository personRepository;
     private final IRoleRepository roleRepository;
     private final IUserEntityMapper userEntityMapper;
     @Override
-    public void saveUser(User user) {
+    public void saveUserOwner(User user) {
         if (user.getRole().getId().equals(PROVIDER_ROLE_ID))
         {
             throw new RoleNotAllowedForCreationException();

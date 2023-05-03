@@ -10,8 +10,5 @@ import org.mapstruct.ReportingPolicy;
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface IUserRequestMapper {
-    //Se coloca @Mapping cuando en las clases se usan diferentes nombres en este caso al tener la id en otro componente de la clase user toca así
-    @Mapping(target = "person.id", source = "idPerson")
-    @Mapping(target = "role.id", source = "idRole")
-    User toUser(UserRequestDto userRequestDto);
+    User toUserOwner(UserRequestDto userRequestDto);
 }

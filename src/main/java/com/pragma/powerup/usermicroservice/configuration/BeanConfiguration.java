@@ -1,6 +1,5 @@
 package com.pragma.powerup.usermicroservice.configuration;
 
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter.PersonMysqlAdapter;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter.RoleMysqlAdapter;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter.UserMysqlAdapter;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IPersonEntityMapper;
@@ -8,13 +7,10 @@ import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IRo
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IUserEntityMapper;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IRoleRepository;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IUserRepository;
-import com.pragma.powerup.usermicroservice.domain.api.IPersonServicePort;
 import com.pragma.powerup.usermicroservice.domain.api.IRoleServicePort;
 import com.pragma.powerup.usermicroservice.domain.api.IUserServicePort;
-import com.pragma.powerup.usermicroservice.domain.spi.IPersonPersistencePort;
 import com.pragma.powerup.usermicroservice.domain.spi.IRolePersistencePort;
 import com.pragma.powerup.usermicroservice.domain.spi.IUserPersistencePort;
-import com.pragma.powerup.usermicroservice.domain.api.usecase.PersonUseCase;
 import com.pragma.powerup.usermicroservice.domain.api.usecase.RoleUseCase;
 import com.pragma.powerup.usermicroservice.domain.api.usecase.UserUseCase;
 import lombok.RequiredArgsConstructor;
@@ -40,19 +36,11 @@ public class BeanConfiguration {
         return new RoleMysqlAdapter(roleRepository, roleEntityMapper);
     }
     @Bean
-    public IPersonServicePort personServicePort() {
-        return new PersonUseCase(personPersistencePort());
-    }
-    @Bean
-    public IPersonPersistencePort personPersistencePort() {
-        return new PersonMysqlAdapter(personRepository, personEntityMapper, passwordEncoder);
-    }
-    @Bean
     public IUserServicePort userServicePort() {
-        return new UserUseCase(userPersistencePort());
+        return new UserUseCase(userPersistencePort(), rolePersistencePort());
     }
     @Bean
     public IUserPersistencePort userPersistencePort() {
-        return new UserMysqlAdapter(userRepository, personRepository, roleRepository, userEntityMapper);
+        return new UserMysqlAdapter(userRepository, roleRepository, userEntityMapper);
     }
 }

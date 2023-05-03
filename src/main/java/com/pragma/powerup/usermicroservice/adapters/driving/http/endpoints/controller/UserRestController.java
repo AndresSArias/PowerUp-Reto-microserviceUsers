@@ -35,33 +35,19 @@ public class UserRestController {
 
     private final IUserHandler userHandler;
 
-    @Operation(summary = "Add a new user",
+    @Operation(summary = "Add a new userOwner",
             responses = {
-                    @ApiResponse(responseCode = "201", description = "User created",
+                    @ApiResponse(responseCode = "201", description = "UserOwner created",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
-                    @ApiResponse(responseCode = "409", description = "User already exists",
+                    @ApiResponse(responseCode = "409", description = "UserOwner already exists",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error"))),
                     @ApiResponse(responseCode = "403", description = "Role not allowed for user creation",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
-    //PosMappgin propio de un controller con su respectiva dirección
-    @PostMapping("")
-    //Al ser un posto necesita un RequestBody para recibir la información
-    public ResponseEntity<Map<String, String>> saveUser(@RequestBody UserRequestDto userRequestDto) {
-        userHandler.saveUser(userRequestDto);
-        //Siempre las espuesta es con ResponseEntity.status(created ya que es post).body(mapeos...?)
+    @PostMapping("/createUserOwner")
+    public ResponseEntity<Map<String, String>> saveUserOwner(@RequestBody UserRequestDto userRequestDto) {
+        userHandler.saveUserOwner(userRequestDto);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.USER_CREATED_MESSAGE));
-    }
-    @Operation(summary = "Delete an user",
-            responses = {
-                    @ApiResponse(responseCode = "200", description = "User deleted",
-                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
-                    @ApiResponse(responseCode = "404", description = "User not found",
-                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
-    @DeleteMapping("")
-    public ResponseEntity<Map<String, String>> deleteUser(@RequestBody UserRequestDto userRequestDto) {
-        userHandler.deleteUser(userRequestDto);
-        return ResponseEntity.ok(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.USER_DELETED_MESSAGE));
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.USEROWNER_CREATED_MESSAGE));
     }
     @Operation(summary = "Get all the providers",
             responses = {
