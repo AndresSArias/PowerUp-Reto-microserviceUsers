@@ -6,7 +6,6 @@ import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter.Use
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IPersonEntityMapper;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IRoleEntityMapper;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IUserEntityMapper;
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IPersonRepository;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IRoleRepository;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IUserRepository;
 import com.pragma.powerup.usermicroservice.domain.api.IPersonServicePort;
@@ -27,7 +26,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @RequiredArgsConstructor
 public class BeanConfiguration {
     private final IRoleRepository roleRepository;
-    private final IPersonRepository personRepository;
     private final IUserRepository userRepository;
     private final IRoleEntityMapper roleEntityMapper;
     private final IPersonEntityMapper personEntityMapper;

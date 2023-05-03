@@ -19,10 +19,10 @@ import java.text.ParseException;
 @RequestMapping("/auth")
 @RequiredArgsConstructor
 public class AuthController {
-    //Llamar al handler correspondiente a su controller
+
     private final IAuthHandler authHandler;
 
-    // Sólo hay respuestas en los controllers no lógica.
+
     @PostMapping("/login")
     public ResponseEntity<JwtResponseDto> login(@Valid @RequestBody LoginRequestDto loginRequestDto) {
         return new ResponseEntity<>(authHandler.login(loginRequestDto), HttpStatus.OK);

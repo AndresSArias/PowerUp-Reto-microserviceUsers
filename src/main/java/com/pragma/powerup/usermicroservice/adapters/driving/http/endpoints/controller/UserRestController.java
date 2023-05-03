@@ -33,10 +33,8 @@ import java.util.Map;
 @SecurityRequirement(name = "jwt")
 public class UserRestController {
 
-    //Llama su handler
     private final IUserHandler userHandler;
-    //Crear etiqueta @Operation donde parametros colocaremos summary = "descripción del endpoint", también está el parameto responses = {} que se compone de @ApiResponse
-    //Así: ,responses ={ @ApiResponse (responseCode = "valor", "description = "",content = @Content (mediaType = "application/Json",schema = @schema (red = "))}
+
     @Operation(summary = "Add a new user",
             responses = {
                     @ApiResponse(responseCode = "201", description = "User created",

@@ -6,6 +6,9 @@ public class Constants {
         throw new IllegalStateException("Utility class");
     }
 
+    public static final Long ADMIN_ROLE_ID = 1L;
+    public static final Long OWNER_ROLE_ID = 2L;
+    /*
     public static final Long CLIENT_ROLE_ID = 1L;
     public static final Long EMPLOYEE_ROLE_ID = 2L;
     public static final Long PROVIDER_ROLE_ID = 3L;
@@ -24,6 +27,7 @@ public class Constants {
     public static final String ROLE_NOT_ALLOWED_MESSAGE = "No permission granted to create users with this role";
     public static final String USER_ALREADY_EXISTS_MESSAGE = "A user already exists with the role provided";
     public static final String USER_NOT_FOUND_MESSAGE = "No user found with the role provided";
+    */
     public static final String SWAGGER_TITLE_MESSAGE = "User API Pragma Power Up";
     public static final String SWAGGER_DESCRIPTION_MESSAGE = "User microservice";
     public static final String SWAGGER_VERSION_MESSAGE = "1.0.0";

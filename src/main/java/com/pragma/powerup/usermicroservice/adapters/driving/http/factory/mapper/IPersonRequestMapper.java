@@ -1,7 +1,6 @@
 package com.pragma.powerup.usermicroservice.adapters.driving.http.factory.mapper;
 
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.PersonRequestDto;
-import com.pragma.powerup.usermicroservice.domain.model.Person;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
