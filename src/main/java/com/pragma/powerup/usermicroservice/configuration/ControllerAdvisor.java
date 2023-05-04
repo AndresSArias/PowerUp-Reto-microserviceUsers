@@ -24,8 +24,6 @@ import java.util.Map;
 
 import static com.pragma.powerup.usermicroservice.configuration.Constants.MAIL_ALREADY_EXISTS_MESSAGE;
 import static com.pragma.powerup.usermicroservice.configuration.Constants.NO_DATA_FOUND_MESSAGE;
-import static com.pragma.powerup.usermicroservice.configuration.Constants.PERSON_ALREADY_EXISTS_MESSAGE;
-import static com.pragma.powerup.usermicroservice.configuration.Constants.PERSON_NOT_FOUND_MESSAGE;
 import static com.pragma.powerup.usermicroservice.configuration.Constants.RESPONSE_ERROR_MESSAGE_KEY;
 import static com.pragma.powerup.usermicroservice.configuration.Constants.ROLE_NOT_ALLOWED_MESSAGE;
 import static com.pragma.powerup.usermicroservice.configuration.Constants.ROLE_NOT_FOUND_MESSAGE;
@@ -65,7 +63,7 @@ public class ControllerAdvisor {
     public ResponseEntity<Map<String, String>> handlePersonAlreadyExistsException(
             PersonAlreadyExistsException personAlreadyExistsException) {
         return ResponseEntity.status(HttpStatus.CONFLICT)
-                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, PERSON_ALREADY_EXISTS_MESSAGE));
+                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, USER_ALREADY_EXISTS_MESSAGE));
     }
 
     @ExceptionHandler(MailAlreadyExistsException.class)
@@ -78,7 +76,7 @@ public class ControllerAdvisor {
     public ResponseEntity<Map<String, String>> handlePersonNotFoundException(
             PersonNotFoundException personNotFoundException) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, PERSON_NOT_FOUND_MESSAGE));
+                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, USER_NOT_FOUND_MESSAGE));
     }
     @ExceptionHandler(RoleNotAllowedForCreationException.class)
     public ResponseEntity<Map<String, String>> handleRoleNotAllowedForCreationException(

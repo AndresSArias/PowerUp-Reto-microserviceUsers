@@ -5,18 +5,18 @@ public class User {
     private Long id;
     private String name;
     private String lastName;
-    private String number_document;
+    private String numberDocument;
     private String phone;
     private Date date_birth;
     private String email;
     private String password;
     private Role role;
 
-    public User(Long id, String name, String lastName, String number_document, String phone, Date date_birth, String email, String password, Role role) {
+    public User(Long id, String name, String lastName, String numberDocument, String phone, Date date_birth, String email, String password, Role role) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
-        this.number_document = number_document;
+        this.numberDocument = numberDocument;
         this.phone = phone;
         this.date_birth = date_birth;
         this.email = email;
@@ -48,12 +48,12 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getNumber_document() {
-        return number_document;
+    public String getNumberDocument() {
+        return numberDocument;
     }
 
     public void setNumber_document(String number_document) {
-        this.number_document = number_document;
+        this.numberDocument = number_document;
     }
 
     public String getPhone() {

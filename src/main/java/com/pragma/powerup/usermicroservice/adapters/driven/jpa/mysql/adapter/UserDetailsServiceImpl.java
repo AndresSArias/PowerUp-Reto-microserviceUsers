@@ -21,9 +21,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String documentID) throws UsernameNotFoundException {
-        UserEntity usuario = userRepository.findByNumberDocument(documentID).orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
+        UserEntity usuario =  userRepository.findByNumberDocument(documentID).orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
 
-        List<UserEntity> userEntity = userRepository.findAllByPersonEntityId(usuario.getId());
+        List<UserEntity> userEntity = userRepository.findAllById(usuario.getId());
         if (userEntity.isEmpty()) {
             throw new UsernameNotFoundException("User not found with documentID: " + documentID);
         }

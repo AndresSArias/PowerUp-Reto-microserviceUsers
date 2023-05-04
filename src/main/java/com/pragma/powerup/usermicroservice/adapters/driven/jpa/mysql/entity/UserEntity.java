@@ -1,6 +1,5 @@
 package com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity;
 
-import com.pragma.powerup.usermicroservice.domain.model.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,7 +22,7 @@ public class UserEntity {
     private String name;
     private String lastName;
     @Column(unique = true, nullable = false, length = 20)
-    private String number_document;
+    private String numberDocument;
     private String phone;
     private Date date_birth;
     private String email;

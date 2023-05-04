@@ -2,7 +2,6 @@ package com.pragma.powerup.usermicroservice.configuration;
 
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter.RoleMysqlAdapter;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter.UserMysqlAdapter;
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IPersonEntityMapper;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IRoleEntityMapper;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IUserEntityMapper;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IRoleRepository;
@@ -24,7 +23,6 @@ public class BeanConfiguration {
     private final IRoleRepository roleRepository;
     private final IUserRepository userRepository;
     private final IRoleEntityMapper roleEntityMapper;
-    private final IPersonEntityMapper personEntityMapper;
     private final IUserEntityMapper userEntityMapper;
     private final PasswordEncoder passwordEncoder;
     @Bean
