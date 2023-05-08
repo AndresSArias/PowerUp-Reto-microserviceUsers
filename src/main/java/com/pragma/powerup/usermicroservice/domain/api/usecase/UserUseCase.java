@@ -20,7 +20,9 @@ public class UserUseCase implements IUserServicePort {
 
     @Override
     public void saveUserOwner(User user) {
+
         user.setRole(rolePersistencePort.getRol(OWNER_ROLE_ID));
+
         userPersistencePort.saveUserOwner(user);
     }
 

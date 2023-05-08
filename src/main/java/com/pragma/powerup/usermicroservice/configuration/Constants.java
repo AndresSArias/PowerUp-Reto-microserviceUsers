@@ -11,8 +11,9 @@ public class Constants {
     public static final String RESPONSE_MESSAGE_KEY = "message";
     public static final String USEROWNER_CREATED_MESSAGE = "UserOwner created successfully";
     public static final String RESPONSE_ERROR_MESSAGE_KEY = "error";
-    public static final String WRONG_CREDENTIALS_MESSAGE = "Wrong credentials";
+    public static final String WRONG_CREDENTIALS_MESSAGE = "Wrong credential";
     public static final String NO_DATA_FOUND_MESSAGE = "No data found for the requested petition";
+    public static final String NO_FORMAT_DATE_MESSAGE ="Bad Request, the format of date is invalid";
     public static final String USER_ALREADY_EXISTS_MESSAGE = "A user already exists with the DNI number provided";
     public static final String MAIL_ALREADY_EXISTS_MESSAGE = "A user with that mail already exists";
     public static final String USER_NOT_FOUND_MESSAGE = "No user found with the id provided";

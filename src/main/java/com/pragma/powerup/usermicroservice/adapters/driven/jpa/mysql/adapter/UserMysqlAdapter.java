@@ -1,5 +1,6 @@
 package com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter;
 
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.NoFormatDataException;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.RoleNotAllowedForCreationException;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.RoleNotFoundException;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.UserAlreadyExistsException;
@@ -9,7 +10,12 @@ import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IUs
 import com.pragma.powerup.usermicroservice.domain.model.User;
 import com.pragma.powerup.usermicroservice.domain.spi.IUserPersistencePort;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import static com.pragma.powerup.usermicroservice.configuration.Constants.*;
 
@@ -21,18 +27,43 @@ public class UserMysqlAdapter implements IUserPersistencePort {
     private final IUserRepository userRepository;
     private final IRoleRepository roleRepository;
     private final IUserEntityMapper userEntityMapper;
+    private final PasswordEncoder passwordEncoder;
+
+
 
     @Override
     public void saveUserOwner(User user) {
-        if (user.getRole().getId().equals(ADMIN_ROLE_ID))
+        if (!user.getRole().getId().equals(OWNER_ROLE_ID))
         {
             throw new RoleNotAllowedForCreationException();
         }
         if (userRepository.findByNumberDocument(user.getNumberDocument()).isPresent()) {
             throw new UserAlreadyExistsException();
         }
+        /*
+        if (!validateFormatDate(user)){
+            throw new NoFormatDataException();
+        }
+        */
+
         roleRepository.findById(user.getRole().getId()).orElseThrow(RoleNotFoundException::new);
+
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(userEntityMapper.toEntity(user));
+    }
+
+    private boolean validateFormatDate(User user) {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+
+
+        try {
+            Date date = sdf.parse(user.getDateBirth()+"");
+            return  true;
+        } catch (ParseException e) {
+            return false;
+        }
+
     }
 
 }
