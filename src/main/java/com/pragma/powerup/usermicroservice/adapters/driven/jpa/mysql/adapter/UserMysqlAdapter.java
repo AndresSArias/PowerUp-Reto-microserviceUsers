@@ -1,6 +1,5 @@
 package com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter;
 
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.NoFormatDataException;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.RoleNotAllowedForCreationException;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.RoleNotFoundException;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.UserAlreadyExistsException;
@@ -26,13 +25,15 @@ public class UserMysqlAdapter implements IUserPersistencePort {
 
     private final IUserRepository userRepository;
     private final IRoleRepository roleRepository;
+
     private final IUserEntityMapper userEntityMapper;
-    private final PasswordEncoder passwordEncoder;
+
 
 
 
     @Override
     public void saveUserOwner(User user) {
+
         if (!user.getRole().getId().equals(OWNER_ROLE_ID))
         {
             throw new RoleNotAllowedForCreationException();
@@ -40,15 +41,9 @@ public class UserMysqlAdapter implements IUserPersistencePort {
         if (userRepository.findByNumberDocument(user.getNumberDocument()).isPresent()) {
             throw new UserAlreadyExistsException();
         }
-        /*
-        if (!validateFormatDate(user)){
-            throw new NoFormatDataException();
-        }
-        */
 
         roleRepository.findById(user.getRole().getId()).orElseThrow(RoleNotFoundException::new);
 
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(userEntityMapper.toEntity(user));
     }
 
