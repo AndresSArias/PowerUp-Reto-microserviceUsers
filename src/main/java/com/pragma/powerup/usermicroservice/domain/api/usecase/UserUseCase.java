@@ -36,7 +36,7 @@ public class UserUseCase implements IUserServicePort {
             throw new DNIIsSoBigException();
         }
 
-        if (!validatePhone(user.getPhone())){
+        if (!validatePhone(user)){
             throw new PhoneLenghtException();
         }
 
@@ -47,12 +47,16 @@ public class UserUseCase implements IUserServicePort {
         userPersistencePort.saveUserOwner(user);
     }
 
-    private boolean validatePhone(String phone) {
-        String[] phoneComponents = phone.split(" ");
+    private boolean validatePhone(User user) {
+        String[] phoneComponents = user.getPhone().split(" ");
+        user.setPhone("");
+
         int lenghtPhone = 0;
         for (int i = 0; i  < phoneComponents.length; i++){
             lenghtPhone = lenghtPhone + phoneComponents[i].length();
+            user.setPhone(user.getPhone()+phoneComponents[i]);
         }
+
         if (lenghtPhone > 13){
             return false;
         }
