@@ -1,7 +1,8 @@
 package com.pragma.powerup.usermicroservice.configuration;
 
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.*;
-import com.pragma.powerup.usermicroservice.adapters.driving.http.exceptions.NoFormatDataException;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.exceptions.*;
+import com.pragma.powerup.usermicroservice.domain.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
@@ -96,4 +97,26 @@ public class ControllerAdvisor {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, ROLE_NOT_FOUND_MESSAGE));
     }
+
+    @ExceptionHandler(AgeNotAllowedForCreationException.class)
+    public ResponseEntity<Map<String, String>> handlenAgeNotAllowedForCreationException(
+            AgeNotAllowedForCreationException ageNotAllowedForCreationException) {
+        return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE)
+                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, AGE_NOT_ALLOWED_MESSAGE));
+    }
+
+    @ExceptionHandler(DNIIsSoBigException.class)
+    public ResponseEntity<Map<String, String>> handlenDNIIsSoBigException(
+            DNIIsSoBigException DNIisSoBigException) {
+        return ResponseEntity.status(HttpStatus.LENGTH_REQUIRED)
+                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, DNI_SIZE_BIG_MESSAGE));
+    }
+
+    @ExceptionHandler(PhoneLenghtException.class)
+    public ResponseEntity<Map<String, String>> handlenPhoneLenghtException(
+            PhoneLenghtException phoneLenghtException) {
+        return ResponseEntity.status(HttpStatus.LENGTH_REQUIRED)
+                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, PHONE_LENGHT_MESSAGE));
+    }
+
 }
