@@ -1,5 +1,6 @@
 package com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter;
 
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.MailAlreadyExistsException;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.RoleNotAllowedForCreationException;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.RoleNotFoundException;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.UserAlreadyExistsException;
@@ -9,7 +10,6 @@ import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IUs
 import com.pragma.powerup.usermicroservice.domain.model.User;
 import com.pragma.powerup.usermicroservice.domain.spi.IUserPersistencePort;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
@@ -40,6 +40,9 @@ public class UserMysqlAdapter implements IUserPersistencePort {
         }
         if (userRepository.findByNumberDocument(user.getNumberDocument()).isPresent()) {
             throw new UserAlreadyExistsException();
+        }
+        if (userRepository.findByEmail(user.getEmail()).isPresent()){
+            throw new MailAlreadyExistsException();
         }
 
         roleRepository.findById(user.getRole().getId()).orElseThrow(RoleNotFoundException::new);
