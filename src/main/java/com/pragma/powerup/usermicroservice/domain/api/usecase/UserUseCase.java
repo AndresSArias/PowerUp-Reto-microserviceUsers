@@ -11,6 +11,7 @@ import static com.pragma.powerup.usermicroservice.configuration.Constants.OWNER_
 public class UserUseCase implements IUserServicePort {
     private final IUserPersistencePort userPersistencePort;
     private final IRolePersistencePort rolePersistencePort;
+
     private final PasswordEncoder passwordEncoder;
 
     public UserUseCase(IUserPersistencePort userPersistencePort, IRolePersistencePort rolePersistencePort, PasswordEncoder passwordEncoder) {

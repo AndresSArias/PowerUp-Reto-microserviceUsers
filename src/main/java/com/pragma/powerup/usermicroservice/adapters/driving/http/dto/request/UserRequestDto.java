@@ -8,7 +8,6 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-
 public class UserRequestDto {
     @Pattern(regexp = "^[A-Za-zÁ-Úá-ú ]+$", message = "The name must have only letters")
     private String name;
