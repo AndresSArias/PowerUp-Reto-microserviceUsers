@@ -10,8 +10,8 @@ import java.util.Date;
 public class UserResponseDto {
     private String name;
     private String lastName;
-    private String number_document;
+    private String numberDocument;
     private String phone;
-    private Date date_birth;
+    private Date dateBirth;
     private String email;
 }

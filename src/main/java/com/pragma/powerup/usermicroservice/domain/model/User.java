@@ -55,8 +55,8 @@ public class User {
         return numberDocument;
     }
 
-    public void setNumber_document(String number_document) {
-        this.numberDocument = number_document;
+    public void setNumberDocument(String numberDocument) {
+        this.numberDocument = numberDocument;
     }
 
     public String getPhone() {

@@ -9,7 +9,7 @@ import lombok.Getter;
 @Getter
 public class LoginRequestDto {
     @NotBlank
-    private String number_document;
+    private String numberDocument;
     @NotBlank
     private String password;
 }

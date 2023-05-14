@@ -10,7 +10,6 @@ import org.mapstruct.ReportingPolicy;
 
 import java.time.LocalDate;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 

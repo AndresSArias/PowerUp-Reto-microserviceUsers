@@ -26,8 +26,7 @@ public class ControllerAdvisor {
     public ResponseEntity<Object> handleValidationException(MethodArgumentNotValidException ex) {
         List<String> errorMessages = new ArrayList<>();
         for (ObjectError error : ex.getBindingResult().getAllErrors()) {
-            if (error instanceof FieldError) {
-                FieldError fieldError = (FieldError) error;
+            if (error instanceof FieldError fieldError) {
                 errorMessages.add(fieldError.getField() + ": " + fieldError.getDefaultMessage());
             } else {
                 errorMessages.add(error.getDefaultMessage());
@@ -35,6 +34,7 @@ public class ControllerAdvisor {
         }
         return new ResponseEntity<>(errorMessages, HttpStatus.BAD_REQUEST);
     }
+
 
     @ExceptionHandler(AuthenticationException.class)
     public ResponseEntity<Map<String, String>> handleAuthenticationException(AuthenticationException noDataFoundException) {
@@ -107,7 +107,7 @@ public class ControllerAdvisor {
 
     @ExceptionHandler(DNIIsSoBigException.class)
     public ResponseEntity<Map<String, String>> handlenDNIIsSoBigException(
-            DNIIsSoBigException DNIisSoBigException) {
+            DNIIsSoBigException dniIsSoBigException) {
         return ResponseEntity.status(HttpStatus.LENGTH_REQUIRED)
                 .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, DNI_SIZE_BIG_MESSAGE));
     }

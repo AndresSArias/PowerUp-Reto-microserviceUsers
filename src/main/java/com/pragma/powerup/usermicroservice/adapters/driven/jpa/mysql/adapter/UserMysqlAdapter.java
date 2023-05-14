@@ -12,10 +12,6 @@ import com.pragma.powerup.usermicroservice.domain.spi.IUserPersistencePort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import static com.pragma.powerup.usermicroservice.configuration.Constants.*;
 
 @RequiredArgsConstructor
@@ -44,24 +40,11 @@ public class UserMysqlAdapter implements IUserPersistencePort {
         if (userRepository.findByEmail(user.getEmail()).isPresent()){
             throw new MailAlreadyExistsException();
         }
-
-        roleRepository.findById(user.getRole().getId()).orElseThrow(RoleNotFoundException::new);
-
-        userRepository.save(userEntityMapper.toEntity(user));
-    }
-
-    private boolean validateFormatDate(User user) {
-
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-
-
-        try {
-            Date date = sdf.parse(user.getDateBirth()+"");
-            return  true;
-        } catch (ParseException e) {
-            return false;
+        if (!roleRepository.findById(user.getRole().getId()).isPresent()){
+            throw new RoleNotFoundException();
         }
 
+        userRepository.save(userEntityMapper.toEntity(user));
     }
 
 }

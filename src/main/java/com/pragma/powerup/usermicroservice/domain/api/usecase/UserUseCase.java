@@ -58,20 +58,14 @@ public class UserUseCase implements IUserServicePort {
             user.setPhone(user.getPhone()+phoneComponents[i]);
         }
 
-        if (lenghtPhone > 13){
-            return false;
-        }
-        return true;
+        return lenghtPhone < 13;
     }
 
     private boolean validateAge(LocalDate dateBirth) {
         LocalDate dateNow = LocalDate.now();
         long age =  dateBirth.until(dateNow, ChronoUnit.YEARS);
 
-        if ( age >= 18l){
-            return true;
-        }
-        return false;
+        return age >= 18l ;
     }
 
 }
