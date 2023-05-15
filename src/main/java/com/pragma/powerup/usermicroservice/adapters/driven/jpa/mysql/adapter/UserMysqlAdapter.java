@@ -1,5 +1,6 @@
 package com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter;
 
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.UserEntity;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.MailAlreadyExistsException;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.RoleNotAllowedForCreationException;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.RoleNotFoundException;
@@ -26,9 +27,8 @@ public class UserMysqlAdapter implements IUserPersistencePort {
 
 
 
-
     @Override
-    public void saveUserOwner(User user) {
+    public UserEntity saveUserOwner(User user) {
 
         if (!user.getRole().getId().equals(OWNER_ROLE_ID))
         {
@@ -44,7 +44,7 @@ public class UserMysqlAdapter implements IUserPersistencePort {
             throw new RoleNotFoundException();
         }
 
-        userRepository.save(userEntityMapper.toEntity(user));
+        return userRepository.save(userEntityMapper.toEntity(user));
     }
 
 }

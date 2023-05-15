@@ -1,8 +1,9 @@
 package com.pragma.powerup.usermicroservice.domain.api;
 
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.UserEntity;
 import com.pragma.powerup.usermicroservice.domain.model.User;
 
 public interface IUserServicePort {
-    void saveUserOwner(User user);
+    UserEntity saveUserOwner(User user);
 
 }

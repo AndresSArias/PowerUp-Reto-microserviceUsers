@@ -1,5 +1,6 @@
 package com.pragma.powerup.usermicroservice.domain.api.usecase;
 
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.UserEntity;
 import com.pragma.powerup.usermicroservice.domain.api.IUserServicePort;
 import com.pragma.powerup.usermicroservice.domain.exceptions.AgeNotAllowedForCreationException;
 import com.pragma.powerup.usermicroservice.domain.exceptions.DNIIsSoBigException;
@@ -27,7 +28,7 @@ public class UserUseCase implements IUserServicePort {
     }
 
     @Override
-    public void saveUserOwner(User user) {
+    public UserEntity saveUserOwner(User user) {
 
         if (!validateAge(user.getDateBirth())) {
             throw new AgeNotAllowedForCreationException();
@@ -45,10 +46,10 @@ public class UserUseCase implements IUserServicePort {
         user.setRole(rolePersistencePort.getRol(OWNER_ROLE_ID));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        userPersistencePort.saveUserOwner(user);
+        return userPersistencePort.saveUserOwner(user);
     }
 
-    private boolean validatePhone(User user) {
+    public boolean validatePhone(User user) {
         String[] phoneComponents = user.getPhone().split(" ");
         user.setPhone("");
 
@@ -58,10 +59,10 @@ public class UserUseCase implements IUserServicePort {
             user.setPhone(user.getPhone()+phoneComponents[i]);
         }
 
-        return lenghtPhone < 13;
+        return lenghtPhone <= 13;
     }
 
-    private boolean validateAge(LocalDate dateBirth) {
+    public boolean validateAge(LocalDate dateBirth) {
         LocalDate dateNow = LocalDate.now();
         long age =  dateBirth.until(dateNow, ChronoUnit.YEARS);
 
