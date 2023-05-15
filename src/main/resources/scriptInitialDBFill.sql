@@ -1,9 +1,6 @@
 /*
 Script for the fill the initial register of dbusersrole
 */
-DROP DATABASE IF EXISTS dbusers;
-CREATE DATABASE IF NOT EXISTS  dbusers;
-
 USE dbusers;
 
 INSERT INTO role (id, description, name) VALUES ('1', 'ROLE_ADMIN', 'ROLE_ADMIN');
