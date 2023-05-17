@@ -49,6 +49,11 @@ public class UserUseCase implements IUserServicePort {
         return userPersistencePort.saveUserOwner(user);
     }
 
+    @Override
+    public User getUserByDocument(String numberDocument) {
+        return userPersistencePort.getUserByDocument(numberDocument);
+    }
+
     public boolean validatePhone(User user) {
         String[] phoneComponents = user.getPhone().split(" ");
         user.setPhone("");

@@ -6,4 +6,6 @@ import com.pragma.powerup.usermicroservice.domain.model.User;
 public interface IUserPersistencePort {
     UserEntity saveUserOwner(User user);
 
+    User getUserByDocument(String numberDocument);
+
 }

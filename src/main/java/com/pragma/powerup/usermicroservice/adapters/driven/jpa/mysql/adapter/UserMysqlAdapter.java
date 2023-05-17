@@ -1,10 +1,7 @@
 package com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter;
 
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.UserEntity;
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.MailAlreadyExistsException;
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.RoleNotAllowedForCreationException;
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.RoleNotFoundException;
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.UserAlreadyExistsException;
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.*;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IRoleRepository;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IUserRepository;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IUserEntityMapper;
@@ -14,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
 import static com.pragma.powerup.usermicroservice.configuration.Constants.*;
+
 
 @RequiredArgsConstructor
 @Transactional
@@ -45,6 +43,12 @@ public class UserMysqlAdapter implements IUserPersistencePort {
         }
 
         return userRepository.save(userEntityMapper.toEntity(user));
+    }
+
+    @Override
+    public User getUserByDocument(String numberDocument) {
+        UserEntity userEntity = userRepository.findByNumberDocument(numberDocument).orElseThrow(UserNotFoundException::new);
+        return userEntityMapper.toUser(userEntity);
     }
 
 }
