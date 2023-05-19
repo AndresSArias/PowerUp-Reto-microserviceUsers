@@ -50,8 +50,8 @@ public class MainSecurity {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
                 .authorizeRequests(requests -> requests
-                        .requestMatchers("/auth/user/**","/auth/login", "/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                        .requestMatchers("/user/createUserOwner").hasRole("ADMIN")
+                        .requestMatchers("/auth/login","/auth/refresh", "/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                        .requestMatchers("/user/createUserOwner","/user/getUser/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin().disable()

@@ -37,15 +37,4 @@ public class AuthController {
         return new ResponseEntity<>(authHandler.refresh(jwtResponseDto), HttpStatus.OK);
     }
 
-    @Operation(summary = "Get a user for conect MicroservicePlazoleta",
-            responses = {
-                    @ApiResponse(responseCode = "200", description = "User returned",
-                            content = @Content(mediaType = "application/json", schema = @Schema(implementation = AuthUserResponse.class))),
-                    @ApiResponse(responseCode = "404", description = "User not found",
-                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
-    @GetMapping("/user/{numberDocument}")
-    public ResponseEntity<AuthUserResponse> getEmployee(@PathVariable String numberDocument) {
-        return ResponseEntity.ok(userHandler.getUsuario(numberDocument));
-    }
-
 }
