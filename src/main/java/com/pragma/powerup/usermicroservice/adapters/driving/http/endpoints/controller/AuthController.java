@@ -24,7 +24,6 @@ import java.text.ParseException;
 public class AuthController {
 
     private final IAuthHandler authHandler;
-    private final IUserHandler userHandler;
 
     @PostMapping("/login")
     public ResponseEntity<JwtResponseDto> login(@Valid @RequestBody LoginRequestDto loginRequestDto) {
