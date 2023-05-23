@@ -1,14 +1,9 @@
 package com.pragma.powerup.usermicroservice.adapters.driving.http.endpoints.controller;
 
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.LoginRequestDto;
-import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.AuthUserResponse;
+
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.JwtResponseDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.IAuthHandler;
-import com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.IUserHandler;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
