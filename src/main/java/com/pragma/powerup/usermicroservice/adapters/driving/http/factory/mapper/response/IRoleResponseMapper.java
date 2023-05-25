@@ -1,4 +1,4 @@
-package com.pragma.powerup.usermicroservice.adapters.driving.http.factory.mapper;
+package com.pragma.powerup.usermicroservice.adapters.driving.http.factory.mapper.response;
 
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.RoleResponseDto;
 import com.pragma.powerup.usermicroservice.domain.model.Role;

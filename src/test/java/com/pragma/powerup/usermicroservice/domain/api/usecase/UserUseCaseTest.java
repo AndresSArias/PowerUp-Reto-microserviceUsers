@@ -62,7 +62,7 @@ class UserUseCaseTest {
 
         UserEntity responseUserEntityTest = userUseCase.saveUserOwner(requestUser);
 
-        assertEquals(responseUserEntityTest, responseUserEntity);
+        assertEquals(responseUserEntity, responseUserEntityTest);
     }
 
     @ParameterizedTest
