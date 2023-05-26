@@ -2,7 +2,7 @@
 <div align="center">
 <h3 align="center">PRAGMA POWER-UP</h3>
   <p align="center">
-    In this challenge I am going to design the backend of a system that centralizes the services and orders of a restaurant chain that has different branches in the city. This is Microservice of Users, this services resolve the HU1.
+    In this challenge I am going to design the backend of a system that centralizes the services and orders of a restaurant chain that has different branches in the city. This is Microservice of Users, this services resolve the HU1 and it is complement for resolve HU2, HU3 in the Plazoleta microservice.
   </p>
 </div>
 
