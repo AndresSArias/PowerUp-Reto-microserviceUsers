@@ -22,6 +22,7 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
+import static com.pragma.powerup.usermicroservice.configuration.Constants.IDUSER;
 import static com.pragma.powerup.usermicroservice.configuration.Constants.ROLES;
 
 @Component
@@ -41,7 +42,8 @@ public class JwtProvider {
                 .toList();
 
         return Jwts.builder()
-                .setSubject(usuarioPrincipal.getUsername())
+                .setSubject(usuarioPrincipal.getEmail())
+                .claim(IDUSER, usuarioPrincipal.getUsername())
                 .claim(ROLES, role)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(new Date().getTime() + expiration * 180))
@@ -76,10 +78,12 @@ public class JwtProvider {
         JWTClaimsSet claims = jwt.getJWTClaimsSet();
         String nombreUsuario = claims.getSubject();
         List<String> roles = claims.getStringListClaim(ROLES);
+        String idUser = claims.getStringClaim(IDUSER);
 
 
         return Jwts.builder()
                 .setSubject(nombreUsuario)
+                .claim(IDUSER, idUser)
                 .claim(ROLES, roles)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(new Date().getTime() + expiration * 180))

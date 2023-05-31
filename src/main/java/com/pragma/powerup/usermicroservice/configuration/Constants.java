@@ -30,5 +30,6 @@ public class Constants {
 
     public static final String PHONE_LENGHT_MESSAGE = "The lenght of Phone is over 13";
     public static final String ROLES = "roles";
+    public static final String IDUSER = "idUser";
 
 }
