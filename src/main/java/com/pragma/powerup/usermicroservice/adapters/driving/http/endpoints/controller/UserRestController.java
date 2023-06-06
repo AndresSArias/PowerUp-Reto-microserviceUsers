@@ -1,5 +1,6 @@
 package com.pragma.powerup.usermicroservice.adapters.driving.http.endpoints.controller;
 
+import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.UserEmployeeRequestDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.UserRequestDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.AuthUserResponse;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.IUserHandler;
@@ -38,7 +39,7 @@ public class UserRestController {
     public ResponseEntity<Map<String, String>> saveUserOwner(@Valid @RequestBody UserRequestDto userRequestDto) {
         userHandler.saveUserOwner(userRequestDto);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.USEROWNER_CREATED_MESSAGE));
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.USER_OWNER_CREATED_MESSAGE));
     }
 
     @Operation(summary = "Get a user for conect MicroservicePlazoleta",
@@ -51,6 +52,13 @@ public class UserRestController {
     @GetMapping("/getUser/{numberDocument}")
     public ResponseEntity<AuthUserResponse> getUser(@PathVariable String numberDocument) {
         return ResponseEntity.ok(userHandler.getUsuario(numberDocument));
+    }
+
+    @PostMapping("/createUserEmployee")
+    public ResponseEntity<Map<String, String>> saveUserEmployee(@Valid @RequestBody UserEmployeeRequestDto userEmployeeRequestDto, @RequestHeader("Authorization") String token) {
+        userHandler.saveUserEmployee(userEmployeeRequestDto, token);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.USER_EMPLOYEE_CREATED_MESSAGE));
     }
 
 }

@@ -4,8 +4,11 @@ import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter.Rol
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter.UserMysqlAdapter;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IRoleEntityMapper;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IUserEntityMapper;
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IUserRestaurantEntityMapper;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IRoleRepository;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IUserRepository;
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IUserRestaurantRepository;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.IPlazoletaClient;
 import com.pragma.powerup.usermicroservice.domain.api.IRoleServicePort;
 import com.pragma.powerup.usermicroservice.domain.api.IUserServicePort;
 import com.pragma.powerup.usermicroservice.domain.spi.IRolePersistencePort;
@@ -22,8 +25,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class BeanConfiguration {
     private final IRoleRepository roleRepository;
     private final IUserRepository userRepository;
+    private final IUserRestaurantRepository userRestaurantRepository;
+
     private final IRoleEntityMapper roleEntityMapper;
     private final IUserEntityMapper userEntityMapper;
+    private final IUserRestaurantEntityMapper userRestaurantEntityMapper;
+
+    private final IPlazoletaClient plazoletaClient;
     private final PasswordEncoder passwordEncoder;
 
     @Bean
@@ -36,10 +44,10 @@ public class BeanConfiguration {
     }
     @Bean
     public IUserServicePort userServicePort() {
-        return new UserUseCase(userPersistencePort(), rolePersistencePort(), passwordEncoder);
+        return new UserUseCase(userPersistencePort(), rolePersistencePort(), userEntityMapper,plazoletaClient,passwordEncoder);
     }
     @Bean
     public IUserPersistencePort userPersistencePort() {
-        return new UserMysqlAdapter(userRepository, roleRepository, userEntityMapper);
+        return new UserMysqlAdapter(userRepository, roleRepository,userRestaurantRepository, userEntityMapper, userRestaurantEntityMapper );
     }
 }

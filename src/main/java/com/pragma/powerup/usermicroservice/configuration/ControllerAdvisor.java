@@ -119,4 +119,17 @@ public class ControllerAdvisor {
                 .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, PHONE_LENGHT_MESSAGE));
     }
 
+    @ExceptionHandler(EmployeeHasWorkException.class)
+    public ResponseEntity<Map<String, String>> handlenEmployeeHasWorkException(
+            EmployeeHasWorkException employeeHasWorkException) {
+        return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE)
+                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, EMPLOYEE_HAS_WORK_MESSAGE));
+    }
+
+    @ExceptionHandler(NitRestaurantException.class)
+    public ResponseEntity<Map<String, String>> handlenNitRestaurantException(
+            NitRestaurantException nitRestaurantException) {
+        return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE)
+                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, PROBLEM_NIT_RESTAURANT_MESSAGE));
+    }
 }

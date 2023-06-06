@@ -8,8 +8,10 @@ public class Constants {
 
     public static final Long ADMIN_ROLE_ID = 1L;
     public static final Long OWNER_ROLE_ID = 2L;
+    public static final Long EMPLOYEE_ROLE_ID = 3L;
     public static final String RESPONSE_MESSAGE_KEY = "message";
-    public static final String USEROWNER_CREATED_MESSAGE = "UserOwner created successfully";
+    public static final String USER_OWNER_CREATED_MESSAGE = "UserOwner created successfully";
+    public static final String USER_EMPLOYEE_CREATED_MESSAGE = "UserEmployee created successfully";
     public static final String RESPONSE_ERROR_MESSAGE_KEY = "error";
     public static final String WRONG_CREDENTIALS_MESSAGE = "Wrong credential";
     public static final String NO_DATA_FOUND_MESSAGE = "No data found for the requested petition";
@@ -27,8 +29,10 @@ public class Constants {
     public static final String SWAGGER_LICENSE_URL_MESSAGE = "http://springdoc.org";
     public static final String SWAGGER_TERMS_OF_SERVICE_MESSAGE = "http://swagger.io/terms/";
     public static final String DNI_SIZE_BIG_MESSAGE = "The size of DNI is so big";
-
     public static final String PHONE_LENGHT_MESSAGE = "The lenght of Phone is over 13";
+    public static final String EMPLOYEE_HAS_WORK_MESSAGE = "The worker who wants to register already has a job.";
+    public static final String PROBLEM_NIT_RESTAURANT_MESSAGE = "A problem has occurred with the restaurant nit provided in the request.";
+
     public static final String ROLES = "roles";
     public static final String IDUSER = "idUser";
 
