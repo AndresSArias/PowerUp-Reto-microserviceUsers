@@ -2,14 +2,16 @@ package com.pragma.powerup.usermicroservice.domain.api.usecase;
 
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.RoleEntity;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.UserEntity;
+
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IUserEntityMapper;
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IUserEntityMapperImpl;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.IPlazoletaClient;
 import com.pragma.powerup.usermicroservice.domain.model.Role;
 import com.pragma.powerup.usermicroservice.domain.model.User;
+import com.pragma.powerup.usermicroservice.domain.model.UserRestaurant;
 import com.pragma.powerup.usermicroservice.domain.spi.IRolePersistencePort;
 import com.pragma.powerup.usermicroservice.domain.spi.IUserPersistencePort;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -17,14 +19,18 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.stubbing.Answer;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -37,18 +43,25 @@ class UserUseCaseTest {
     @Mock
     private IRolePersistencePort rolePersistencePort;
     @Mock
+    private  IUserEntityMapper userEntityMapper;
+    @Mock
+    private  IPlazoletaClient plazoletaClient;
+    @Mock
     private PasswordEncoder passwordEncoder;
 
     private User requestUser;
-
+    private UserRestaurant userRestaurant;
     @BeforeEach
     void setUp() {
         requestUser = new User (1L,"nameTest", "lasNameTest","123","+573142294644"
                 ,LocalDate.of(2000,1,1),"prueba@test.com","123"
                 , new Role(1L,"ROLE_PRUEBA","ROLE_PRUEBA"));
 
+        userRestaurant = new UserRestaurant(1L,requestUser,"1","employee","true");
 
     }
+
+
 
     @Test
     void saveUserOwner() {
@@ -63,6 +76,28 @@ class UserUseCaseTest {
         UserEntity responseUserEntityTest = userUseCase.saveUserOwner(requestUser);
 
         assertEquals(responseUserEntity, responseUserEntityTest);
+    }
+
+    @Test
+    void saveUserEmployee () {
+        UserEntity responseUserEntity = new UserEntity(requestUser.getId(),requestUser.getName(),requestUser.getLastName()
+                ,requestUser.getNumberDocument(),requestUser.getPhone(),requestUser.getDateBirth()
+                , requestUser.getEmail(),"encrypyedPassword"
+                , new RoleEntity(requestUser.getRole().getId(), requestUser.getRole().getName(),requestUser.getRole().getDescription()));
+        Map<String,String> resultHeaders = new HashMap<String, String>() {{
+            put("Authorization", "Bearer x.x.x.x");
+        }};
+        when(plazoletaClient.getIdRestaurant(userRestaurant.getNitRestaurant(), resultHeaders)).thenReturn(ResponseEntity.ok("1"));
+        when(rolePersistencePort.getRol(anyLong())).thenReturn(new Role(1L,"ROLE_PRUEBA","ROLE_PRUEBA"));
+        when (userEntityMapper.toUser(responseUserEntity)).thenReturn(requestUser);
+        when(passwordEncoder.encode(requestUser.getPassword())).thenReturn("encrypyedPassword");
+        when(userPersistencePort.saveUserEmployee(requestUser)).thenReturn(responseUserEntity);
+
+
+        UserEntity userObtaind = userUseCase.saveUserEmployee(requestUser,userRestaurant,"1","Bearer x.x.x.x");
+
+        assertEquals(responseUserEntity,userObtaind,"result was wrong");
+
     }
 
     @ParameterizedTest
