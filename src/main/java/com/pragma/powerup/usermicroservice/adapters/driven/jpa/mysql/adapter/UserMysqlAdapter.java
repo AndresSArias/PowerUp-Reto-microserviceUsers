@@ -77,6 +77,25 @@ public class UserMysqlAdapter implements IUserPersistencePort {
         return userRestaurantRepository.save(userRestaurantEntityMapper.toEntity(userRestaurant));
     }
 
+    @Override
+    public UserEntity saveUserCustomer(User user) {
+
+        if (!user.getRole().getId().equals(CUSTOMER_ROLE_ID))
+        {
+            throw new RoleNotAllowedForCreationException();
+        }
+        if (userRepository.findByNumberDocument(user.getNumberDocument()).isPresent()) {
+            throw new UserAlreadyExistsException();
+        }
+        if (userRepository.findByEmail(user.getEmail()).isPresent()){
+            throw new MailAlreadyExistsException();
+        }
+        if (!roleRepository.findById(user.getRole().getId()).isPresent()){
+            throw new RoleNotFoundException();
+        }
+
+        return userRepository.save(userEntityMapper.toEntity(user));
+    }
 
     @Override
     public User getUserByDocument(String numberDocument) {

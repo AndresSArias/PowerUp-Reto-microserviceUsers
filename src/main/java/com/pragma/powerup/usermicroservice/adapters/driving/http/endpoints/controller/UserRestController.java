@@ -61,4 +61,12 @@ public class UserRestController {
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.USER_EMPLOYEE_CREATED_MESSAGE));
     }
 
+    @PostMapping("/createUserCustomer")
+    public ResponseEntity<Map<String, String>> saveUserCustomer(@Valid @RequestBody UserRequestDto userRequestDto) {
+        userHandler.saveUserCustomer(userRequestDto);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.USER_EMPLOYEE_CREATED_MESSAGE));
+    }
+
+
 }

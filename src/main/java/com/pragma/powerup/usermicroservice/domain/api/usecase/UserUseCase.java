@@ -19,8 +19,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.pragma.powerup.usermicroservice.configuration.Constants.EMPLOYEE_ROLE_ID;
-import static com.pragma.powerup.usermicroservice.configuration.Constants.OWNER_ROLE_ID;
+import static com.pragma.powerup.usermicroservice.configuration.Constants.*;
 
 public class UserUseCase implements IUserServicePort {
     private final IUserPersistencePort userPersistencePort;
@@ -95,6 +94,28 @@ public class UserUseCase implements IUserServicePort {
         userPersistencePort.saveRelationUserRestaurant(userRestaurant, newEmployee.getRoleEntity().getId());
 
         return newEmployee;
+    }
+
+    @Override
+    public UserEntity saveUserCustomer(User user) {
+
+        if (!validateAge(user.getDateBirth())) {
+            throw new AgeNotAllowedForCreationException();
+        }
+
+        if (user.getNumberDocument().length() > 20){
+            throw new DNIIsSoBigException();
+        }
+
+        if (!validatePhone(user)){
+            throw new PhoneLenghtException();
+        }
+
+
+        user.setRole(rolePersistencePort.getRol(CUSTOMER_ROLE_ID));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        return userPersistencePort.saveUserCustomer(user);
     }
 
     @Override

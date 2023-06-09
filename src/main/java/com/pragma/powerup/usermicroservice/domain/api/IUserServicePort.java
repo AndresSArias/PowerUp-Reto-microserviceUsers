@@ -9,5 +9,7 @@ public interface IUserServicePort {
 
     UserEntity saveUserEmployee(User user, UserRestaurant userRestaurant, String onwerDNI, String token);
 
+    UserEntity saveUserCustomer(User user);
+
     User getUserByDocument (String numberDocument);
 }

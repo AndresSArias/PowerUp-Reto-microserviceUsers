@@ -7,5 +7,7 @@ import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.Au
 public interface IUserHandler {
     void saveUserOwner(UserRequestDto userRequestDto);
     void saveUserEmployee (UserEmployeeRequestDto userEmployeeRequestDto, String token);
+    void saveUserCustomer(UserRequestDto userRequestDto);
+
     AuthUserResponse getUsuario (String numberDocument);
 }

@@ -99,7 +99,20 @@ class UserUseCaseTest {
         assertEquals(responseUserEntity,userObtaind,"result was wrong");
 
     }
+    @Test
+    void saveUserCustomer(){
+        UserEntity responseUserEntity = new UserEntity(requestUser.getId(),requestUser.getName(),requestUser.getLastName()
+                ,requestUser.getNumberDocument(),requestUser.getPhone(),requestUser.getDateBirth()
+                , requestUser.getEmail(),"encrypyedPassword"
+                , new RoleEntity(requestUser.getRole().getId(), requestUser.getRole().getName(),requestUser.getRole().getDescription()));
+        when(rolePersistencePort.getRol(anyLong())).thenReturn(new Role(1L,"ROLE_PRUEBA","ROLE_PRUEBA"));
+        when(passwordEncoder.encode(requestUser.getPassword())).thenReturn("encrypyedPassword");
+        when(userPersistencePort.saveUserCustomer(requestUser)).thenReturn(responseUserEntity);
 
+        UserEntity responseUserEntityTest = userUseCase.saveUserCustomer(requestUser);
+
+        assertEquals(responseUserEntity, responseUserEntityTest,"result was wrong");
+    }
     @ParameterizedTest
     @CsvSource({
             "'+57 3142294643',true",

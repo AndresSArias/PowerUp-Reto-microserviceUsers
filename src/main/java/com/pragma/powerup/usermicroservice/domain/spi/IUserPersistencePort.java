@@ -10,6 +10,8 @@ public interface IUserPersistencePort {
 
     UserEntity saveUserEmployee (User user);
 
+    UserEntity saveUserCustomer (User user);
+
     UserRestaurantEntity saveRelationUserRestaurant (UserRestaurant userRestaurant, Long idRol);
 
     User getUserByDocument(String numberDocument);
