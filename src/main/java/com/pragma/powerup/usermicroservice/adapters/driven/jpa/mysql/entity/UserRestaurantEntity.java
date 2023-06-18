@@ -18,7 +18,6 @@ public class UserRestaurantEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @ManyToOne
     @JoinColumn(name = "id_user", nullable = false)
     private UserEntity userEntity;
